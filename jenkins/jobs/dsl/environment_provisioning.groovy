@@ -36,7 +36,7 @@ The reference application deploy job is expecting the default environment to be 
                 |	echo $1, $2
                 |    export ENVIRONMENT_NAME=$1
                 |    export SERVICE_NAME="$(echo ${PROJECT_NAME} | tr '/' '_')_${ENVIRONMENT_NAME}"
-                |    docker-compose -p ${SERVICE_NAME} up -d
+                |    sudo docker-compose -p ${SERVICE_NAME} up -d
                 |    ## Add nginx configuration
                 |    sed -i "s/###TOMCAT_SERVICE_NAME###/${SERVICE_NAME}/" $2
                 |    docker cp $2 proxy:/etc/nginx/sites-enabled/${SERVICE_NAME}.conf
@@ -126,8 +126,8 @@ destroyEnvironmentJob.with{
                 |	echo $1, $2
                 |    export ENVIRONMENT_NAME=$1
                 |	export SERVICE_NAME="$(echo ${PROJECT_NAME} | tr '/' '_')_${ENVIRONMENT_NAME}"
-                |    docker-compose -p ${SERVICE_NAME} stop
-                |    docker-compose -p ${SERVICE_NAME} rm -f
+                |    sudo docker-compose -p ${SERVICE_NAME} stop
+                |    sudo docker-compose -p ${SERVICE_NAME} rm -f
                 |    ## Deleted nginx configuration
                 |    docker exec proxy rm -f /etc/nginx/sites-enabled/${SERVICE_NAME}.conf
                 |}
