@@ -35,7 +35,7 @@ The reference application deploy job is expecting the default environment to be 
                 |function createDockerContainer() {
                 |	echo $1, $2
                 |    export ENVIRONMENT_NAME=$1
-                |    export SERVICE_NAME="$(echo ${PROJECT_NAME} | tr '/' '_')_${ENVIRONMENT_NAME}"
+                |    export SERVICE_NAME="$(echo ${PROJECT_NAME} | tr '/' '.').${ENVIRONMENT_NAME}"
                 |    docker-compose -p ${SERVICE_NAME} up -d
                 |    ## Add nginx configuration
                 |    sed -i "s/###TOMCAT_SERVICE_NAME###/${SERVICE_NAME}/" $2
@@ -125,7 +125,7 @@ destroyEnvironmentJob.with{
                 |function deleteDockerContainer() {
                 |	echo $1, $2
                 |    export ENVIRONMENT_NAME=$1
-                |	export SERVICE_NAME="$(echo ${PROJECT_NAME} | tr '/' '_')_${ENVIRONMENT_NAME}"
+                |	export SERVICE_NAME="$(echo ${PROJECT_NAME} | tr '/' '.').${ENVIRONMENT_NAME}"
                 |    docker-compose -p ${SERVICE_NAME} stop
                 |    docker-compose -p ${SERVICE_NAME} rm -f
                 |    ## Deleted nginx configuration
