@@ -4,7 +4,7 @@ def projectFolderName = "${PROJECT_NAME}"
 
 // Variables
 def projectNameKey = projectFolderName.toLowerCase().replace("/", "-")
-def referenceAppgitRepo = "java-gft-vendor-api-project"
+def referenceAppgitRepo = "VendorService"
 def referenceAppGitUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + referenceAppgitRepo
 
 // Jobs
@@ -226,18 +226,6 @@ deployJob.with {
             |echo "=.=.=.=.=.=.=.=.=.=.=.=."
             |set -x'''.stripMargin()
         )
-    }
-    publishers {
-        downstreamParameterized {
-            trigger(projectFolderName + "/Reference_Application_Regression_Tests") {
-                condition("UNSTABLE_OR_BETTER")
-                parameters {
-                    predefinedProp("B", '${B}')
-                    predefinedProp("PARENT_BUILD", '${PARENT_BUILD}')
-                    predefinedProp("ENVIRONMENT_NAME", '${ENVIRONMENT_NAME}')
-                }
-            }
-        }
     }
 }
 

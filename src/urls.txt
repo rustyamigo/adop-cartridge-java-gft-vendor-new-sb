@@ -1,2 +1,2 @@
-https://github.com/khozema-nullwala/java-gft-vendor-api-project.git
+https://github.com/khozema-nullwala/VendorService.git
 https://github.com/khozema-nullwala/adop-cartridge-java-environment-template.git
