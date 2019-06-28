@@ -201,7 +201,7 @@ deployJob.with {
             }
         }
         shell('''set +x
-            |export SERVICE_NAME="$(echo ${PROJECT_NAME} | tr '/' '_')_${ENVIRONMENT_NAME}"
+            |export SERVICE_NAME="$(echo ${PROJECT_NAME} | tr '/' '.').${ENVIRONMENT_NAME}"
             |docker cp ${WORKSPACE}/target/project.war  ${SERVICE_NAME}:/usr/local/tomcat/webapps/
             |docker restart ${SERVICE_NAME}
             |COUNT=1
