@@ -50,11 +50,11 @@ The reference application deploy job is expecting the default environment to be 
                 |    createDockerContainer "PRODA" "tomcatA.conf"
                 |    createDockerContainer "PRODB" "tomcatB.conf"
                 |
-                |	SERVICE_NAME_PRODA="$(echo ${PROJECT_NAME} | tr '/' '_')_PRODA"
-                |    SERVICE_NAME_PRODB="$(echo ${PROJECT_NAME} | tr '/' '_')_PRODB"
+                |	SERVICE_NAME_PRODA="$(echo ${PROJECT_NAME} | tr '/' '.').PRODA"
+                |    SERVICE_NAME_PRODB="$(echo ${PROJECT_NAME} | tr '/' '.').PRODB"
                 |    TOMCAT_1_IP=$( docker inspect --format '{{ .NetworkSettings.Networks.'"$DOCKER_NETWORK_NAME"'.IPAddress }}' ${SERVICE_NAME_PRODA} )
                 |    TOMCAT_2_IP=$( docker inspect --format '{{ .NetworkSettings.Networks.'"$DOCKER_NETWORK_NAME"'.IPAddress }}' ${SERVICE_NAME_PRODB} )
-                |    PROJECT_KEY_PROD="$(echo ${PROJECT_NAME} | tr '/' '_')_PROD"
+                |    PROJECT_KEY_PROD="$(echo ${PROJECT_NAME} | tr '/' '.').PROD"
                 |    TOKEN_UPSTREAM_NAME="###TOKEN_UPSTREAM_NAME###"
                 |    TOKEN_NAMESPACE="###TOKEN_NAMESPACE###"
                 |    TOKEN_TOMCAT_1_IP="###TOKEN_TOMCAT_1_IP###"
@@ -138,7 +138,7 @@ destroyEnvironmentJob.with{
                 |	mv tomcat.conf tomcatA.conf &&cp tomcatA.conf tomcatB.conf
                 |    deleteDockerContainer "PRODA" "tomcatA.conf"
                 |    deleteDockerContainer "PRODB" "tomcatB.conf"
-                |    PROJECT_KEY_PROD="$(echo ${PROJECT_NAME} | tr '/' '_')_PROD"
+                |    PROJECT_KEY_PROD="$(echo ${PROJECT_NAME} | tr '/' '.').PROD"
                 |    docker exec proxy rm -f /etc/nginx/sites-enabled/${PROJECT_KEY_PROD}.conf
                 |fi
                 |
